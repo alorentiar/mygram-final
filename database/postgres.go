@@ -20,18 +20,18 @@ func NewPostgres() (*Postgres, error) {
 	// Read environment variables for database credentials
 	host := os.Getenv("PGHOST")
 	user := os.Getenv("PGUSER")
-	password := os.Getenv("PGPASS")
+	// password := os.Getenv("PGPASS")
 	dbname := os.Getenv("PGDBNAME")
 	port := os.Getenv("PGPORT")
 
 	// Validate required environment variables
-	if host == "" || user == "" || password == "" || dbname == "" || port == "" {
+	if host == "" || user == "" || dbname == "" || port == "" {
 		return nil, errors.New("missing required database environment variables")
 	}
 
 	// Construct the data source name (DSN)
-	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
-		host, user, password, dbname, port)
+	dsn := fmt.Sprintf("host=%s user=%s password='' dbname=%s port=%s sslmode=disable",
+		host, user, dbname, port)
 
 	// Open a connection to the PostgreSQL database
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{}) // Use gorm.Config for customization (optional)

@@ -95,7 +95,7 @@ func RegisterUser(c *gin.Context) {
 	user.Password = base64.StdEncoding.EncodeToString(hashedPassword)
 
 	// 4. Connect to the database (assuming you have a database.NewPostgres() function)
-	postgres := c.MustGet("postgres").(*database.Postgres) // Assuming you store the connection in context
+	postgres := c.MustGet("user").(*database.Postgres) // Assuming you store the connection in context
 	db := postgres.DB
 
 	// 5. Check for existing user (optional, based on your use case)
